@@ -11,10 +11,11 @@ from urllib.parse import urlparse
 
 def run(config, platform, bazel_binary, git_repository):
     try:
-        cleanup(bazel_binary)
         if git_repository:
             clone_repository(git_repository)
-        cleanup(bazel_binary)
+            cleanup(bazel_binary)
+        else:
+            cleanup(bazel_binary)
         os.mkdir(OUTPUT_DIRECTORY)
         shell_commands(config.get("shell_commands", None))
         bazel_run(bazel_binary, config.get("run_targets", None))
